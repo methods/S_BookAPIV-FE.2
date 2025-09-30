@@ -39,15 +39,23 @@ help: ## Show help
 	@echo "  make db-seed      (DEPRECATED) Use 'make books' instead."
 	@echo "  make db-setup     (DEPRECATED) Use 'make setup' instead."
 
-install: $(PIP)
 
-$(PIP): requirements.txt
-	@echo "--> Creating virtual environment and installing dependencies..."
+# Step 1: Ensure the virtual environment exists
+$(PYTHON):
+	@echo "--> Creating virtual environment..."
 	python3 -m venv $(VENV_DIR)
+	@echo "Virtual environment created."
+
+# Step 2: Ensure dependencies are installed/updated
+$(PIP): requirements.txt | $(PYTHON)
+	@echo "--> Upgrading pip..."
 	$(PIP) install --upgrade pip
-	## pip is idempotent. It will only install what's necessary.
+	@echo "--> Installing dependencies..."
 	$(PIP) install -r requirements.txt
 	@echo "Installation complete."
+
+# Install target (just an alias)
+install: $(PIP)
 
 run: $(PIP)
 	@echo "--> Starting Flask development server..."
