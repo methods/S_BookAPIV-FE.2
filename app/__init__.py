@@ -28,10 +28,12 @@ def create_app(test_config=None):
     from app.routes.auth_routes import auth_bp
     from app.routes.legacy_routes import register_legacy_routes
     from app.routes.reservation_routes import reservations_bp
+    from app.routes.web_routes import web_bp
 
     # Register routes with app instance
     register_legacy_routes(app)
     app.register_blueprint(auth_bp)
     app.register_blueprint(reservations_bp)
+    app.register_blueprint(web_bp)
 
     return app
