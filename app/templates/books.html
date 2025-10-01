@@ -12,6 +12,8 @@
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl">Available Books</h1>
 
+    <p class="govuk-body" id="book-count">Loading book count...</p>
+
     {# We will populate this table using JavaScript #}
     <div id="books-table-container">
       <p class="govuk-body">Loading books...</p>
@@ -24,7 +26,7 @@
   // This script runs in the user's browser
   document.addEventListener('DOMContentLoaded', function() {
     // Fetch data from our existing API endpoint
-    fetch('/books')
+    fetch('/books?limit=1000')
       .then(response => {
         if (!response.ok) {
           throw new Error(`Network response was not ok (${response.status})`);
@@ -32,10 +34,14 @@
         return response.json();
       })
       .then(data => {
+        const totalCount = data.total_count || 0
         const books = data.items;
         const container = document.getElementById('books-table-container');
 
         if (books && books.length > 0) {
+          // Display the total count above the table
+          document.getElementById('book-count').innerHTML = `Showing ${books.length} books of ${totalCount}`;
+          
           // Prepare data for the GOV.UK Table macro format
           const head = [
             { text: "Title" },
