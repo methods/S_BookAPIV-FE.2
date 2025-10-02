@@ -7,12 +7,12 @@ from flask import Blueprint, render_template
 # Blueprint keeps routes organized
 web_bp = Blueprint("web_bp", __name__)
 
-
-@web_bp.route("/", methods=["GET"])
-def index():
-    """Serves the home page."""
-    # For now, shows the books list as the home page
-    return render_template("books.html")
+# Commented out as not doing much right now
+# @web_bp.route("/", methods=["GET"])
+# def index():
+#     """Serves the home page."""
+#     # For now, shows the books list as the home page
+#     return render_template("books.html")
 
 
 @web_bp.route("/show-books", methods=["GET"])
