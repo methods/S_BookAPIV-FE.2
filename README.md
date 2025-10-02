@@ -7,12 +7,18 @@ This project provides a books API that will allow users to add, retrieve, reserv
 - [Contributing Guidelines](CONTRIBUTING.md)
 - [License Information](LICENSE.md)
 
-## Prerequisites
+## Development Setup
 
-Before you begin, ensure you have the following installed:
+This project uses a specific version of Python. It is **highly recommended** to use `pyenv` to manage your Python versions to ensure a consistent development environment.
 
-*   **Python 3**: Version 3.7 or newer is recommended. You can download it from [python.org](https://www.python.org/downloads/).
-*   **pip**: Python's package installer. It usually comes with Python installations.
+### 1. Prerequisites (One-time setup on your machine)
+
+* **Homebrew:** The standard package manager for macOS. [Install it from brew.sh](https://brew.sh/).
+* **`pyenv`:** A tool for managing multiple Python versions.
+  ```bash
+  brew install pyenv
+  ```
+    After installing, follow the on-screen instructions from Homebrew to add the `pyenv init` command to your shell's startup file (e.g., `.zshrc`).
 *   **make**: A build automation tool. Pre-installed on macOS/Linux. Windows users may need to install it (e.g., via Chocolatey or WSL).
 * [Docker](https://formulae.brew.sh/formula/docker)
 * [Colima](https://github.com/abiosoft/colima) (for Mac/Linux users)
@@ -36,7 +42,17 @@ This project uses a `Makefile` to automate setup and common tasks.
     make help
     ```
 
-### Step 2: Set Up and Run MongoDB
+### Step 2: Install Python and Dependencies
+1.  **Install the correct Python version:** `pyenv` will read the `.python-version` file in this repository and know which version is needed.
+    ```bash
+    pyenv install $(cat .python-version)
+    ```
+2.  **Install project dependencies:** This Makefile command will automatically create a virtual environment using the correct Python version (thanks to `pyenv`) and install all required packages.
+    ```bash
+    make install
+    ```
+
+### Step 3: Set Up and Run MongoDB
 
 This project requires MongoDB to be running locally. We recommend using **Docker** and **Colima** for a lightweight, consistent environment.
 
@@ -63,7 +79,7 @@ Look for a container named mongodb with port 27017 exposed. You can also connect
 
 
 
-### Step 3: Install Project Dependencies
+### Step 4: Install Project Dependencies
 
 The `Makefile` will create a local virtual environment (venv) and install all required Python packages. You only need to run this once.
 
@@ -71,7 +87,7 @@ The `Makefile` will create a local virtual environment (venv) and install all re
 make install
 ```
 
-### Step 4: Set Up the Database
+### Step 5: Set Up the Database
 
 To perform a full database reset and populate it with initial data for development, run the main setup command:
 ```bash
@@ -93,7 +109,7 @@ To use the API, you first need to populate the database with some initial data.
 
 
 
-### Step 5: Run the API
+### Step 6: Run the API
 
 With the database seeded, you can now run the Flask application.
 

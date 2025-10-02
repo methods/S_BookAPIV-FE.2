@@ -1,0 +1,31 @@
+{
+  "name": "s_bookapiv-fe.2",
+  "version": "1.0.0",
+  "description": "## Project Overview",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "sass app/scss/main.scss app/static/css/main.css",
+    "build:js": "mkdir -p app/static/js/ && cp node_modules/govuk-frontend/dist/govuk/govuk-frontend.min.js app/static/js/",
+    "build:assets": "mkdir -p app/static/assets && cp -r node_modules/govuk-frontend/dist/govuk/assets/* app/static/assets/",
+    "build": "npm run build:css && npm run build:js && npm run build:assets"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/methods/S_BookAPIV-FE.2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/methods/S_BookAPIV-FE.2/issues"
+  },
+  "homepage": "https://github.com/methods/S_BookAPIV-FE.2#readme",
+  "devDependencies": {
+    "govuk-frontend": "^5.12.0",
+    "sass": "^1.93.2"
+  }
+}
