@@ -15,7 +15,6 @@ from app.extensions import mongo
 from scripts import seed_reservations as load_reservations_module
 
 
-
 def test_load_reservations_json_success():
     """
     GIVEN a valid JSON string representing reservation data
@@ -422,9 +421,11 @@ def test_returns_error_if_reservation_json_fails_to_load(test_app, mongo_setup):
         books.insert_one({"_id": ObjectId(), "title": "A Book"})
         users.insert_one({"_id": ObjectId(), "email": "a@b.com"})
 
-    # 2. Patch the one dependency we want to fail: `load_reservations_json`.
-    #    Use patch.object for better robustness in CI environments.
-        with patch.object(load_reservations_module, "load_reservations_json", return_value=None) as mock_load_json:
+        # 2. Patch the one dependency we want to fail: `load_reservations_json`.
+        #    Use patch.object for better robustness in CI environments.
+        with patch.object(
+            load_reservations_module, "load_reservations_json", return_value=None
+        ) as mock_load_json:
             # ACT
             with test_app.app_context():
                 success, message = load_reservations_module.run_reservation_population()
@@ -435,7 +436,6 @@ def test_returns_error_if_reservation_json_fails_to_load(test_app, mongo_setup):
     assert message == "Failed to load reservation data."
     # 4. Verify that the function did attempt to load the JSON.
     mock_load_json.assert_called_once()
-
 
 
 def test_proceeds_when_reservation_json_loads_successfully(test_app):
@@ -480,7 +480,9 @@ def test_proceeds_when_reservation_json_loads_successfully(test_app):
         ):
             # ACT
             with test_app.app_context():
-                success, _message = load_reservations_module.run_reservation_population()
+                success, _message = (
+                    load_reservations_module.run_reservation_population()
+                )
 
         # ASSERT
         # 4. Check that the function reported success.
@@ -546,7 +548,9 @@ def test_skips_reservation_if_book_title_not_found(test_app, capsys):
         ):
             # ACT
             with test_app.app_context():
-                success, _message = load_reservations_module.run_reservation_population()
+                success, _message = (
+                    load_reservations_module.run_reservation_population()
+                )
 
         # ASSERT
         assert success is True
